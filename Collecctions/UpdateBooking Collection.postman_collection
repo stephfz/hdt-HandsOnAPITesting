@@ -1,0 +1,137 @@
+{
+	"id": "21231bb3-567a-6f3e-58ee-3606d24a1278",
+	"name": "UpdateBooking Collection",
+	"description": "",
+	"order": [
+		"f6b3c00a-8434-8df8-fb86-74b3b214ee56",
+		"bf4177ff-9161-d544-ee64-5316fbd86508",
+		"f5eec3be-b2da-5a89-1d27-3db29fb65790",
+		"1653d671-22d6-2536-071d-c7719bd0402a"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1531760083560,
+	"owner": "2981261",
+	"public": false,
+	"requests": [
+		{
+			"id": "1653d671-22d6-2536-071d-c7719bd0402a",
+			"headers": "",
+			"headerData": [],
+			"url": "{{base_url}}/booking/1",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1538663155434,
+			"name": "03 - Get Booking",
+			"description": "",
+			"collectionId": "21231bb3-567a-6f3e-58ee-3606d24a1278",
+			"responses": []
+		},
+		{
+			"id": "bf4177ff-9161-d544-ee64-5316fbd86508",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"enabled": true,
+					"description": ""
+				}
+			],
+			"url": "{{base_url}}/auth",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "var jsonData = JSON.parse(responseBody);\nvar token = jsonData[\"token\"];\n\n\npostman.setEnvironmentVariable(\"token\", token);\n\n\n\ntests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1537478353601,
+			"name": "01 - Authorize User",
+			"description": "",
+			"collectionId": "21231bb3-567a-6f3e-58ee-3606d24a1278",
+			"responses": [],
+			"isFromCollection": true,
+			"timestamp": null,
+			"collectionRequestId": "2d75be68-9e87-66ff-3a24-b05941ba59c8",
+			"rawModeData": "{\n    \"username\": \"admin\",\n    \"password\": \"password123\"\n}"
+		},
+		{
+			"id": "f5eec3be-b2da-5a89-1d27-3db29fb65790",
+			"headers": "Cookie: token={{token}}\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Cookie",
+					"value": "token={{token}}",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{base_url}}/booking/{{bookingid}}",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1538936707772,
+			"name": "02 - Update Booking",
+			"description": "",
+			"collectionId": "21231bb3-567a-6f3e-58ee-3606d24a1278",
+			"responses": [],
+			"rawModeData": "{\n  \"firstname\" : \"Teresa\",\n\t\"lastname\" : \"Brown\",\n\t\"totalprice\" : 111,\n\t\"depositpaid\" : true,\n\t\"additionalneeds\" : \"Breakfast\",\n\t\"bookingdates\" : {\n\t\t\"checkin\" : \"2013-02-23\",\n\t\t\"checkout\" : \"2014-10-23\"\n\t}\n}"
+		},
+		{
+			"id": "f6b3c00a-8434-8df8-fb86-74b3b214ee56",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{base_url}}/booking",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\nvar jsonData = JSON.parse(responseBody);\nvar bookingid = jsonData[\"bookingid\"];\n\n\npostman.setEnvironmentVariable(\"bookingid\", bookingid);",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1538936711275,
+			"name": "00 - New Booking",
+			"description": "",
+			"collectionId": "21231bb3-567a-6f3e-58ee-3606d24a1278",
+			"responses": [],
+			"rawModeData": "{\n    \"firstname\" : \"Jim\",\n    \"lastname\" : \"Brown\",\n    \"totalprice\" : 111,\n    \"depositpaid\" : true,\n    \"bookingdates\" : {\n        \"checkin\" : \"2018-01-01\",\n        \"checkout\" : \"2019-01-01\"\n    },\n    \"additionalneeds\" : \"Breakfast\"\n}"
+		}
+	]
+}

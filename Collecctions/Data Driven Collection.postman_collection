@@ -1,0 +1,66 @@
+{
+	"id": "78b30d46-264d-194f-31da-e50b635c9b98",
+	"name": "Data Driven Collection",
+	"description": "",
+	"order": [
+		"6c747fcf-c645-4d27-8045-f55457ac1388",
+		"c50cf809-ee1c-644c-390f-704d78fdd729"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1531769862225,
+	"owner": "2981261",
+	"public": false,
+	"requests": [
+		{
+			"id": "6c747fcf-c645-4d27-8045-f55457ac1388",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{base_url}}/booking",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "var jsonData = JSON.parse(responseBody);\nvar bookingid = jsonData[\"bookingid\"];\n\n\npostman.setEnvironmentVariable(\"bookingid\", bookingid);\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\n\n\ntests[\"Response has bookingid\"] = responseBody.has(\"bookingid\");\n\nvar schema = {\n\t\"$schema\": \"http://json-schema.org/draft-04/schema#\",\n\t\"type\": \"object\",\n\t\"properties\": {\n\t\t\"bookingid\": {\"type\": \"integer\"},\n\t\t\"booking\": {      \n                \"type\" : [\"null\", \"object\"],\n                \"properties\" : \n                {\n                  \"firstname\" : {\"type\" :\"string\"},\n                  \"lastname\": {\"type\" :\"string\"},\n                  \"totalprice\": {\"type\" :\"integer\"},\n                  \"depositpaid\": {\"type\" :\"boolean\"}\n              \n                }\n\t              }},\n\t\"required\": [\n\t\t\"bookingid\",\n\t\t\"booking\"\n\t]\n};\n\ntests[\"Valid scehma\"] = tv4.validate(jsonData, schema);\n \nconsole.log(\"Validation failed: \", tv4.error);\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1538865523649,
+			"name": "00 - New Booking",
+			"description": "",
+			"collectionId": "78b30d46-264d-194f-31da-e50b635c9b98",
+			"responses": [],
+			"rawModeData": "{\n  \"firstname\" : \"{{firstname}}\",\n\t\"lastname\" : \"{{lastname}}\",\n\t\"totalprice\" : {{totalprice}},\n\t\"depositpaid\" : {{depositpaid}},\n\t\"additionalneeds\" : \"{{additionalneeds}}\",\n\t\"bookingdates\" : {\n\t\t\"checkin\" : \"{{checkin}}\",\n\t\t\"checkout\" : \"{{checkout}}\"\n\t}\n}"
+		},
+		{
+			"id": "c50cf809-ee1c-644c-390f-704d78fdd729",
+			"headers": "",
+			"headerData": [],
+			"url": "{{base_url}}/booking/{{bookingid}}",
+			"folder": null,
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1538862615528,
+			"name": "GET booking by id",
+			"collectionId": "78b30d46-264d-194f-31da-e50b635c9b98"
+		}
+	]
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "street_address": { "type": "string" },
+    "city":           { "type": "string" },
+    "state":          { "type": "string" },
+    "category":       { "type": "int" },
+  },
+  "required": ["street_address", "city", "state"]
+}
+
+
+{
+
+    "Street_address": "123 Flower Lane" ,
+    "city": "La Jolla",
+    "state": "California",
+    "category":4,
+
+}
